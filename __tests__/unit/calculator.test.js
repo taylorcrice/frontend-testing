@@ -70,19 +70,12 @@ describe('calculator', function () {
   })
 
   describe('clear button', function () {
-    let state = null
-    beforeEach(function () {
-      state = stream('4+2=')
-    })
-
     test('should set display to 6', function () {
-      expect(state.display).toBe('6')
+
     })
 
     test('should set calculator state to new initialState', function () {
-      const newState = stream('c')
-      expect(newState.display).toBe('0')
-      expect(newState.dispaly).not.toBe(state.display)
+
     })
   })
 })
