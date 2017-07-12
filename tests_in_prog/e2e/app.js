@@ -30,14 +30,14 @@ describe('calculator app', function () {
     await retry(async () => {
       const title = await driver.getTitle()
 
-      expect(title).toEqual('Calculator')
+      expect(title).toBe('Calculator')
     })
 
     await retry(async () => {
       const displayElement = await driver.findElement(By.css('.display'))
       const displayText = await displayElement.getText()
 
-      expect(displayText).toEqual('0')
+      expect(displayText).toBe('0')
     })
 
     const digit4Element = await driver.findElement(By.css('.digit-4'))
@@ -55,7 +55,7 @@ describe('calculator app', function () {
       const displayElement = await driver.findElement(By.css('.display'))
       const displayText = await displayElement.getText()
 
-      expect(displayText).toEqual('84')
+      expect(displayText).toBe('84')
     })
   })
 })

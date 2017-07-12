@@ -1,35 +1,27 @@
 {
   "name": "frontend-testing",
   "version": "1.0.0",
-  "description": "The repository for the code of the series of blog posts about Frontend testing",
+  "description": "Mod of create-oss - The repository for the code of the series of blog posts about Frontend testing",
   "main": "index.js",
   "scripts": {
     "build": "webpack && cp public/* dist",
     "test": "jest --coverage --config=./.jestrc.js && eslint test lib",
-    "test:debug": "jest --debug-brk '__tests__/**/*.test.js'",
-    "start": "webpack-dev-server --hot",
-    "deploy": "surge --project dist --domain frontend-testing.surge.sh"
+    "start": "webpack-dev-server --hot"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/create-oss/frontend-testing.git"
+    "url": "git+https://github.com/taylorrice/frontend-testing.git"
   },
   "keywords": [
     "testing",
     "tutorial"
   ],
-  "author": "Gil Tayar <gil@tayar.org>",
-  "license": "UNLICENSE",
-  "private": true,
-  "bugs": {
-    "url": "https://github.com/create-oss/frontend-testing/issues"
-  },
-  "homepage": "https://github.com/create-oss/frontend-testing#readme",
+  "author": "Taylor Rice",
+  "license": "UNLICENSED",
   "devDependencies": {
     "babel-jest": "^20.0.3",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
-    "chai": "^3.5.0",
     "chromedriver": "^2.27.3",
     "eslint": "^3.14.1",
     "eslint-config-standard": "^6.2.1",

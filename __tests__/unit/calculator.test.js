@@ -1,5 +1,9 @@
 const calculator = require('../../lib/calculator')
 
+/* toBe toEqual .not. toBeNull toBeDefined toBeTruthy toBeFalsy toMatch
+  toThrow toContain toMatch beforeAll test.only
+*/
+
 describe('calculator', function () {
   const stream = (characters, calculatorState = calculator.initialState) =>
     !characters
@@ -7,58 +11,78 @@ describe('calculator', function () {
       : stream(characters.slice(1),
                calculator.nextState(calculatorState, characters[0]))
 
-  it('should show initial display correctly', () => {
-    expect(calculator.initialState.display).toEqual('0')
-  })
-  it('should replace 0 in initialState', () => {
-    expect(stream('4').display).toEqual('4')
+  test('should show initial display correctly', () => {
+    expect(calculator.initialState.display).toBe('0')
   })
 
-  it('should add a digit if not in initial state', () => {
-    expect(stream('34').display).toEqual('34')
+  test('should replace 0 in initialState', () => {
+    expect(stream('4').display).toBe('4')
   })
 
-  it('should not change display if operator appears', () => {
-    expect(stream('3+').display).toEqual('3')
+  test('should add a digit if not in initial state', () => {
+    expect(stream('34').display).toBe('34')
   })
 
-  it('should change display to digit when digit appears after operator', () => {
-    expect(stream('37+4').display).toEqual('4')
+  describe('operators & computing', function () {
+    test('should not change display if operator appears', () => {
+      expect(stream('3+').display).toBe('3')
+    })
+
+    test('should change display to digit when digit appears after operator', () => {
+      expect(stream('37+4').display).toBe('4')
+    })
+
+    test('should compute 37+42= to be 79', () => {
+      expect(stream('37+42=').display).toBe('79')
+    })
+
+    test('should compute another expression after "="', () => {
+      expect(stream('1+2=4*5=').display).toBe('20')
+    })
+
+    test('should enabling using computation result in next computation', () => {
+      expect(stream('1+2=*5=').display).toBe('15')
+    })
+
+    test('second operator is also an equal', () => {
+      expect(stream('1+2*').display).toBe('3')
+    })
+
+    test('second operator is also an equal but it can continue after that', () => {
+      expect(stream('1+2*11=').display).toBe('33')
+    })
+
+    test('+42= should compute to 42', () => {
+      expect(stream('+42=').display).toBe('42')
+    })
+
+    test('*42= should compute to 0', () => {
+      expect(stream('*42=').display).toBe('0')
+    })
+
+    test('47-48= should compute to -1', () => {
+      expect(stream('47-48=').display).toBe('-1')
+    })
+
+    test('8/2= should compute to 4', () => {
+      expect(stream('8/2=').display).toBe('4')
+    })
   })
 
-  it('should compute 37+42= to be 79', () => {
-    expect(stream('37+42=').display).toEqual('79')
-  })
+  describe('clear button', function () {
+    let state = null
+    beforeEach(function () {
+      state = stream('4+2=')
+    })
 
-  it('should compute another expression after "="', () => {
-    expect(stream('1+2=4*5=').display).toEqual('20')
-  })
+    test('should set display to 6', function () {
+      expect(state.display).toBe('6')
+    })
 
-  it('should enabling using computation result in next computation', () => {
-    expect(stream('1+2=*5=').display).toEqual('15')
-  })
-
-  it('second operator is also an equal', () => {
-    expect(stream('1+2*').display).toEqual('3')
-  })
-
-  it('second operator is also an equal but it can continue after that', () => {
-    expect(stream('1+2*11=').display).toEqual('33')
-  })
-
-  it('+42= should compute to 42', () => {
-    expect(stream('+42=').display).toEqual('42')
-  })
-
-  it('*42= should compute to 0', () => {
-    expect(stream('*42=').display).toEqual('0')
-  })
-
-  it('47-48= should compute to -1', () => {
-    expect(stream('47-48=').display).toEqual('-1')
-  })
-
-  it('8/2= should compute to 4', () => {
-    expect(stream('8/2=').display).toEqual('4')
+    test('should set calculator state to new initialState', function () {
+      const newState = stream('c')
+      expect(newState.display).toBe('0')
+      expect(newState.dispaly).not.toBe(state.display)
+    })
   })
 })

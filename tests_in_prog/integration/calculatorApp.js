@@ -20,7 +20,7 @@ describe('calculator app component', function () {
 
     const displayElement = document.querySelector('.display')
 
-    expect(displayElement.textContent).toEqual('0')
+    expect(displayElement.textContent).toBe('0')
 
     const digit4Element = document.querySelector('.digit-4')
     const digit2Element = document.querySelector('.digit-2')
@@ -33,6 +33,6 @@ describe('calculator app component', function () {
     digit2Element.click()
     operatorEquals.click()
 
-    expect(displayElement.textContent).toEqual('84')
+    expect(displayElement.textContent).toBe('84')
   })
 })
